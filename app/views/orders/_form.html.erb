@@ -1,0 +1,24 @@
+<%= simple_form_for(@order) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :delivery_date %>
+    <%= f.input :order_number %>
+    <%= f.input :customer %>
+    <%= f.input :status %>
+    <%= f.input :description %>
+    <%= f.input :production %>
+    <%= f.input :department %>
+    <%= f.input :quantity %>
+    <%= f.input :hours %>
+    <%= f.input :hours_diff %>
+    <%= f.input :hours_nc %>
+    <%= f.input :item_list %>
+    <%= f.input :material_bc %>
+    <%= f.input :material_pc %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

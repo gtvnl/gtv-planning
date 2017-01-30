@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "GTV Planning" %></title>
+
+    <%= stylesheet_link_tag 'application', media: :screen %>
+    <%= stylesheet_link_tag 'print', media: :print %>
+
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <%= render 'default/top_bar' %>
+    <%= render 'default/breadcrumbs' %>
+
+    <div class="row">
+      <%= display_flash_messages %>
+      <%= yield %>
+
+    </div>
+    <footer>
+      <div class="row">
+        <div class="small-3 small-centered columns">
+            <%= "#{params[:controller]}##{params[:action]}"  %>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
