@@ -15,7 +15,7 @@ gem 'foundation-rails'
 gem 'foundation_rails_helper', '>= 3.0.0.rc2', '< 4.0'
 gem 'foundation-icons-sass-rails'
 gem 'gretel'
-gem 'roo-xls'
+gem 'roo'
 
 group :development, :test do
   gem 'byebug', platform: :mri

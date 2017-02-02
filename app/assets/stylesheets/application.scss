@@ -1,5 +1,9 @@
 @import "foundation_and_overrides";
 
+.div-inline{
+    display:inline-block;
+}
+
 @media print {
   .large-1 {
     width: 8.33333%;

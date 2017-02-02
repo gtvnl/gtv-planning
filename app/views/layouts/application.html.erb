@@ -17,11 +17,13 @@
     <%= render 'default/top_bar' %>
     <%= render 'default/breadcrumbs' %>
 
-    <div class="row">
+    <div class="row ">
       <%= display_flash_messages %>
+    </div>
+
+      
       <%= yield %>
 
-    </div>
     <footer>
       <div class="row">
         <div class="small-3 small-centered columns">

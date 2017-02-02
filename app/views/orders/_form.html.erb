@@ -4,6 +4,7 @@
   <div class="form-inputs">
     <%= f.input :delivery_date %>
     <%= f.input :order_number %>
+    <%= f.input :ready, collection: [true, false] %>
     <%= f.input :customer %>
     <%= f.input :status %>
     <%= f.input :description %>

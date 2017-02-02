@@ -7,13 +7,17 @@ class UploadController < ApplicationController
   def import
     csv_file = params[:file]
 
-    quote_chars = %w(" | ~ ^ & *)
-
     b = Roo::Spreadsheet.open(csv_file)
+
+    errors = 0
+
+    records_added = 0
+    records_updated = 0
 
     b.each(
         delivery_date: 'Leverdatum',
         order_number: 'Order',
+        receipt_number: 'Bonnummer',
         customer: 'Order.Relatie.Debiteur.Relatie.Naam',
         status: 'Workflowstatus',
         description: 'Omschrijving',
@@ -24,26 +28,38 @@ class UploadController < ApplicationController
         hours: 'uren',
         hours_diff: 'verschil uren',
         hours_nc: 'uren nc',
-        delivery_date: 'Verzenddatum - Date',
+        send_date: 'Verzenddatum - Date',
         item_list: 'Stuklijst',
         material_bc: 'Order.Nagecalculeerde materiaalkosten',
-        material_pc: 'Order.Voorgecalculeerde materiaalkosten')
-      do |hash|
-         @order = Order.find(hash[order_number])
+        material_pc: 'Order.Voorgecalculeerde materiaalkosten') do |hash|
 
-         delivery_date = hash[:delivery_date]
-         order_number = hash[:order_number]
-         customer = hash[:customer]
-         status = hash[:status]
-         description = hash[:description]
+        unless hash[:order_number] == 'Order' # Skip the header
 
-         if @order.nil?
-           Order.create()
-         else
-           @order.update(delivery_date)
-         end
+          if hash[:department] == 'Paneelbouw'
+
+            id = {"number" => "#{hash[:order_number]}.#{hash[:receipt_number]}".to_f}
+            hash.merge!(id)
+
+            @order = Order.where(number: id["number"]).first
+
+            test = Order.new(hash)
+             raise 'error' unless test.valid?
+
+            if @order.nil?
+              records_added += 1
+
+              order = Order.create(hash)
+
+            else
+              records_updated += 1
+              order = @order.update(hash)
+
+            end
+          end
+       end
     end
 
+    redirect_to orders_path, notice: "#{errors} errors while importing. #{records_added} added. #{records_updated} updated."
 
   end
 end

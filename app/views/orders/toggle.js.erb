@@ -1,0 +1,6 @@
+<% if @order.ready %>
+$('.<%= @order.id %>').html("<%= escape_javascript link_to('Ja', toggle_order_path(@order), :method => :put, remote: true) %>");
+
+<% else %>
+$('.<%= @order.id %>').html("<%= escape_javascript link_to('Nee', toggle_order_path(@order), :method => :put, remote: true) %>");
+<% end %>

@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :orders
-  root 'upload#index'
+  root 'orders#index'
 
-  resources :pages
+  resources :orders do
+    member do
+      put :toggle
+    end
+  end
+
+  resources :weeks
 
   get 'import', to: 'upload#index'
   post 'import', to: 'upload#import'
