@@ -8,9 +8,10 @@
       <thead>
         <tr>
           <th width="200"></th>
-          <th>Capaciteit</th>
           <th>Verdelers</th>
-          <th>Uren</th>
+          <th>Uren beschikbaar</th>
+          <th>Uren nodig</th>
+          <th>Uren over</th>
         </tr>
       </thead>
       <tbody>
@@ -20,9 +21,10 @@
         <% wk = Week.where(number: number).first %>
           <tr>
             <td><span data-tooltip aria-haspopup='true' class='has-tip' data-disable-hover='false' tabindex='1' title='<%= Order.monday_this_week(number).strftime("%a, %d %B, %Y") %> tot <%= Order.friday_this_week(number).strftime("%a, %d %B, %Y") %>'>Week <%= number %></span></td>
-            <td><%= wk.capacity %></td>
             <td><%= Order.quantity_this_week(number) %></td>
+            <td><%= wk.capacity %></td>
             <td><%= Order.production_hours_this_week(number) %></td>
+            <td><%= wk.capacity - Order.production_hours_this_week(number) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -78,7 +80,7 @@
           </span>
         </td>
 
-        <td><%= order.order_number %></td>
+        <td><%= link_to order.order_number, order_path(order) %></td>
         <td><%= order.receipt_number %></td>
         <td><%= order.customer %></td>
         <td><%= order.description %></td>
@@ -114,13 +116,13 @@
         <% if order.hours_diff < 0 %>
         <td class="text-center" style="background-color:#cc4b37">
           <span data-tooltip aria-haspopup='true' class='has-tip' data-disable-hover='false' tabindex='1' title='Over te tijd'>
-            <i style='color: #fff' class='fi-x'></i>
+            <i style='color: #fff' class='fi-clock'></i>
           </span>
         </td>
         <% elsif order.hours.between?(0, 0.1) %>
         <td class="text-center" style="background-color:#ffae00">
           <span data-tooltip aria-haspopup='true' class='has-tip' data-disable-hover='false' tabindex='1' title='Controleer tijd en aantal'>
-            <i style='color: #fff' class='fi-x'></i>
+            <i style='color: #fff' class='fi-info'></i>
           </span>
         </td>
         <% else %>
@@ -146,7 +148,8 @@
         <tr style="background-color:#cacaca">
           <th width="20">
             <small>
-              Wk.<%= index + 1 %>
+              <% week = Week.where(number: index + 1).first %>
+              <%= link_to "Wk.#{index + 1}", edit_week_path(week) %>
             </small>
           </th>
 
@@ -163,9 +166,7 @@
           <th></th>
         </tr>
       </thead>
-      <tr style="background-color:#ccc">
-          <td colspan="12"></td>
-      </tr>
+
     <% end %>
       <% orders.sort_by(&:delivery_date).each do |order| %>
 
@@ -179,7 +180,7 @@
             </span>
           </td>
 
-          <td><%= order.order_number %></td>
+          <td><%= link_to order.order_number, order_path(order) %></td>
           <td><%= order.receipt_number %></td>
           <td><%= order.customer %></td>
           <td><%= order.description %></td>
@@ -216,13 +217,13 @@
           <% if order.hours_diff < 0 %>
           <td class="text-center" style="background-color:#cc4b37">
             <span data-tooltip aria-haspopup='true' class='has-tip' data-disable-hover='false' tabindex='1' title='Over te tijd'>
-              <i style='color: #fff' class='fi-x'></i>
+              <i style='color: #fff' class='fi-clock'></i>
             </span>
           </td>
           <% elsif order.hours.between?(0, 0.1) %>
           <td class="text-center" style="background-color:#ffae00">
             <span data-tooltip aria-haspopup='true' class='has-tip' data-disable-hover='false' tabindex='1' title='Controleer tijd en aantal'>
-              <i style='color: #fff' class='fi-x'></i>
+              <i style='color: #fff' class='fi-info'></i>
             </span>
           </td>
           <% else %>

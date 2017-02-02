@@ -2,9 +2,10 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
+    <%= f.input :name, disabled: true %>
     <%= f.input :number %>
-    <%= f.input :mechanic %>
+    <%= f.input :days, label: "Aantal dagen" %>
+    <%= f.input :mechanics, label: "Monteurs" %>
   </div>
 
   <div class="form-actions">

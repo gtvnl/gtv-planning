@@ -5,10 +5,10 @@ class Week
   field :name, :type => String
   field :number, :type => Integer
   field :mechanics, :type => Integer, default: 3
-  field :default_hours, :type => Float, default: 39.5
+  field :days, :type => Integer, default: 5
 
   def capacity
-    mechanics * default_hours
+    mechanics * 7.5 * days
   end
 
 end

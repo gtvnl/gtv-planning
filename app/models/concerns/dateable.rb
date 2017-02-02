@@ -54,11 +54,11 @@ module Dateable
     end
 
     def deliver_this_week(week)
-      Order.where(:delivery_date.in => [monday_this_week(week), friday_this_week(week)])
+      Order.where(:delivery_date.in => monday_this_week(week)..friday_this_week(week))
     end
 
     def production_hours_this_week(week)
-      Order.deliver_this_week(week).sum(:hours)
+      Order.deliver_this_week(week).sum(:hours).round
     end
 
     def quantity_this_week(week)

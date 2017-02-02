@@ -13,6 +13,7 @@ class UploadController < ApplicationController
 
     records_added = 0
     records_updated = 0
+    info = []
 
     b.each(
         delivery_date: 'Leverdatum',
@@ -37,7 +38,7 @@ class UploadController < ApplicationController
 
           if hash[:department] == 'Paneelbouw'
 
-            id = {"number" => "#{hash[:order_number]}.#{hash[:receipt_number]}".to_f}
+            id = {"number" => "#{hash[:order_number]}.#{hash[:receipt_number]}"}
             hash.merge!(id)
 
             @order = Order.where(number: id["number"]).first
@@ -52,6 +53,7 @@ class UploadController < ApplicationController
 
             else
               records_updated += 1
+              info << id
               order = @order.update(hash)
 
             end
@@ -59,7 +61,7 @@ class UploadController < ApplicationController
        end
     end
 
-    redirect_to orders_path, notice: "#{errors} errors while importing. #{records_added} added. #{records_updated} updated."
+    redirect_to orders_path, notice: "#{errors} errors while importing. #{records_added} added. #{records_updated} updated. #{info}"
 
   end
 end

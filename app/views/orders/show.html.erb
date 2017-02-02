@@ -1,17 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Delivery date:</strong>
+  <strong>Leverdatum:</strong>
   <%= @order.delivery_date %>
 </p>
 
 <p>
-  <strong>Order number:</strong>
+  <strong>Order nummer:</strong>
   <%= @order.order_number %>
 </p>
 
 <p>
-  <strong>Customer:</strong>
+  <strong>Klant:</strong>
   <%= @order.customer %>
 </p>
 
@@ -21,54 +21,53 @@
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Omschrijving:</strong>
   <%= @order.description %>
 </p>
 
 <p>
-  <strong>Production:</strong>
+  <strong>Vrijgegeven:</strong>
   <%= @order.production %>
 </p>
 
 <p>
-  <strong>Department:</strong>
+  <strong>Afdeling:</strong>
   <%= @order.department %>
 </p>
 
 <p>
-  <strong>Quantity:</strong>
+  <strong>Aantal:</strong>
   <%= @order.quantity %>
 </p>
 
 <p>
-  <strong>Hours:</strong>
+  <strong>Uren:</strong>
   <%= @order.hours %>
 </p>
 
 <p>
-  <strong>Hours diff:</strong>
+  <strong>Uren verschil:</strong>
   <%= @order.hours_diff %>
 </p>
 
 <p>
-  <strong>Hours nc:</strong>
+  <strong>Uren geboekt:</strong>
   <%= @order.hours_nc %>
 </p>
 
 <p>
-  <strong>Item list:</strong>
+  <strong>Stuklijst:</strong>
   <%= @order.item_list %>
 </p>
 
 <p>
-  <strong>Material bc:</strong>
-  <%= @order.material_bc %>
+  <strong>Materiaal voorgecalculeerd:</strong>
+  &euro; <%= @order.material_bc %>
 </p>
 
 <p>
-  <strong>Material pc:</strong>
-  <%= @order.material_pc %>
+  <strong>Materiaal nagecalculeerd:</strong>
+  &euro; <%= @order.material_pc %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Terug', orders_path, class: "button" %>

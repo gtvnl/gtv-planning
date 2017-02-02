@@ -12,7 +12,7 @@ class Order
 
   field :order_number, :type => Integer
   field :receipt_number, :type => Integer
-  field :number, type: Float, index: true, required: true
+  field :number, type: String, index: true, required: true
 
   field :customer, :type => String
   field :status, :type => String
